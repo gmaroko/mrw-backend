@@ -61,7 +61,7 @@ backend /
 
 ---
 
-#### 🎬 Movie Endpoints
+#### Movie Endpoints
 
 | Method | Endpoint              | Description                        | Auth Required |
 |--------|-----------------------|------------------------------------|---------------|
@@ -83,7 +83,7 @@ backend /
 
 ---
 
-#### 👤 User Management
+#### User Management
 
 | Method | Endpoint             | Description                  | Auth Required |
 |--------|----------------------|------------------------------|---------------|
@@ -124,4 +124,4 @@ The server will run on http://localhost:9467
 
 
 ## License
-This project is licensed under the MIT License.
+This project is licensed under the [MIT License](./LICENSE). 
