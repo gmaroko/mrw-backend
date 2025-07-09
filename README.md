@@ -5,8 +5,11 @@ This is the backend service for the Movie Review Web App. It is built with **Nod
 
 ## Contributors
 
-
-
+- **[Maroko Gideon](mailto:gmaroko@usiu.ac.ke)** – Tech Lead
+- **[Seline Atieno](mailto:aseline744@gmail.com)** –  Developer
+- **[Angel Wesonga](mailto:liakaangel@gmail.com)** –  Developer
+- **[Jones Kisilu](mailto:kisilujones17@gmail.com)** –  Developer
+- **[Mohamed Ali](mailto:mabdinoor17@gmail.com)** –  Developer
 
 ##  Features
 
@@ -46,8 +49,7 @@ backend /
 - **ADMIN** - super user, with elevetade roles
 
 ## Database Schema
-![DB Diagram auth flow](docs/image.png)
-
+![DB Diagram flow](docs/image.png)
 
 ## API Endpoints
 
