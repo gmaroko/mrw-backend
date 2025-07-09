@@ -5,7 +5,6 @@ This is the backend service for the Movie Review Web App. It is built with **Nod
 
 ## Contributors
 
-- **[Maroko Gideon](mailto:gmaroko@usiu.ac.ke)** – Tech Lead
 
 
 
@@ -47,6 +46,7 @@ backend /
 - **ADMIN** - super user, with elevetade roles
 
 ## Database Schema
+![DB Diagram auth flow](docs/image.png)
 
 
 ## API Endpoints
