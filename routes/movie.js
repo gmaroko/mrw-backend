@@ -45,7 +45,7 @@ router.get("/", async (req, res) => {
 
     try {
         data = await TMDBApiHelper.listMovies(params.type);
-        console.log("Data fetched successfully:", data);
+        // console.log("Data fetched successfully:", data);
 
         successful = true;
         statusCode = HttpStatusCode.Ok.toString();
