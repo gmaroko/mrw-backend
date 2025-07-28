@@ -1,5 +1,5 @@
 const { default: axios, HttpStatusCode } = require("axios");
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 const HelperMethods = require("../utils/sharedutils");
 const TMDBApiHelper = require("../utils/tmdb");
@@ -44,7 +44,7 @@ router.get("/", async (req, res) => {
     }
 
     try {
-        data = TMDBApiHelper.listMovies(params.type);
+        data = await TMDBApiHelper.listMovies(params.type);
         console.log("Data fetched successfully:", data);
 
         successful = true;
@@ -99,7 +99,7 @@ router.get("/", async (req, res) => {
  *         schema:
  *           type: string
  *           default: "en-US"
- *           description: The language of the results.    
+ *           description: The language of the results.
  *      - in: query
  *        name: primary_release_year
  *        required: false
@@ -107,7 +107,7 @@ router.get("/", async (req, res) => {
  *          type: string
  *          description: The primary release year of the movie.
  *      - in: query
- *         name: region 
+ *         name: region
  *         required: false
  *         schema:
  *          type: string
@@ -141,25 +141,25 @@ router.get("/search", async (req, res) => {
         year: year || ""
     }
 
-    try {
-        data = await TMDBApiHelper.searchMovies(params);
-        successful = true;
-        statusCode = HttpStatusCode.Ok.toString();
-        statusMessage = "Movies search successfully";
-    } catch (error) {
-        console.error("Error searching movies:", error);
-        statusMessage = "Error searching movies";
-    }
+  try {
+    data = await TMDBApiHelper.searchMovies(params);
+    successful = true;
+    statusCode = HttpStatusCode.Ok.toString();
+    statusMessage = "Movies search successfully";
+  } catch (error) {
+    console.error("Error searching movies:", error);
+    statusMessage = "Error searching movies";
+  }
 
-    res.json(
-        HelperMethods.makeResponseObject(
-            statusCode,
-            statusMessage,
-            successful,
-            data
-        )
-    );
-    res.end();
+  res.json(
+    HelperMethods.makeResponseObject(
+      statusCode,
+      statusMessage,
+      successful,
+      data
+    )
+  );
+  res.end();
 });
 
 
@@ -186,36 +186,41 @@ router.get("/search", async (req, res) => {
  *         description: Search Content bad request / Server error
  */
 router.get("/:id", async (req, res) => {
-    console.log(`Movie Details Request Handler: [request = ${JSON.stringify(req.body)}, Received on: ${new Date().toLocaleString('en-US', { timeZoneName: 'short' })}]`);
+  console.log(
+    `Movie Details Request Handler: [request = ${JSON.stringify(
+      req.body
+    )}, Received on: ${new Date().toLocaleString("en-US", {
+      timeZoneName: "short",
+    })}]`
+  );
 
-    const movieId = req.params.id;
+  const movieId = req.params.id;
 
-    // Response variables
-    var statusCode = HttpStatusCode.Unauthorized.toString();
-    var statusMessage = defaultStatusMessage;
-    var data = {};
-    var successful = false;
+  // Response variables
+  var statusCode = HttpStatusCode.Unauthorized.toString();
+  var statusMessage = defaultStatusMessage;
+  var data = {};
+  var successful = false;
 
-    // TODO: implement service
+  // TODO: implement service
 
-    try {
-        data = await TMDBApiHelper.getMovieDetails({}, movieId);
-        successful = true;
-        statusCode = HttpStatusCode.Ok.toString();
-        statusMessage = "Movie details fetched successfully";
-    } catch (error) {
-        statusMessage = "Error fetching movie details";
-    }
-    res.json(
-        HelperMethods.makeResponseObject(
-            statusCode,
-            statusMessage,
-            successful,
-            data
-        )
-    );
-    res.end();
+  try {
+    data = await TMDBApiHelper.getMovieDetails({}, movieId);
+    successful = true;
+    statusCode = HttpStatusCode.Ok.toString();
+    statusMessage = "Movie details fetched successfully";
+  } catch (error) {
+    statusMessage = "Error fetching movie details";
+  }
+  res.json(
+    HelperMethods.makeResponseObject(
+      statusCode,
+      statusMessage,
+      successful,
+      data
+    )
+  );
+  res.end();
 });
 
-
-module.exports = router
+module.exports = router;
