@@ -76,6 +76,35 @@ class TMDBApiHelper {
             return {};
         }
     };
+
+    trailer = async (movieId, params) => {
+        const options = {
+            method: "GET",
+            headers: {
+                accept: "application/json",
+                Authorization: `Bearer ${process.env.TMDB_API_KEY}`,
+            },
+        };
+        var response = {};
+        const url =
+            `${process.env.TMDB_API_URL}/movie/${movieId}/videos` + new URLSearchParams(params).toString();
+        try {
+            const res = await fetch(url, options);
+            const data = await res.json();
+            if (data.results && data.results.length > 0) {
+                const trailer = data.results.find(video => video.type === "Trailer" && video.site === "YouTube" && video.official);
+                if (trailer) {
+                    let yt = `https://www.youtube.com/watch?v=${trailer.key}`;
+                    trailer.site = yt;
+                    return trailer;
+                }
+            }
+            return {};
+        } catch (err) {
+            console.error("Error checking trailer link for movie data:", err);
+            return {};
+        }
+    };
 }
 
 module.exports = new TMDBApiHelper();

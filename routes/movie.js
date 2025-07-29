@@ -141,25 +141,25 @@ router.get("/search", async (req, res) => {
         year: year || ""
     }
 
-  try {
-    data = await TMDBApiHelper.searchMovies(params);
-    successful = true;
-    statusCode = HttpStatusCode.Ok.toString();
-    statusMessage = "Movies search successfully";
-  } catch (error) {
-    console.error("Error searching movies:", error);
-    statusMessage = "Error searching movies";
-  }
+    try {
+        data = await TMDBApiHelper.searchMovies(params);
+        successful = true;
+        statusCode = HttpStatusCode.Ok.toString();
+        statusMessage = "Movies search successfully";
+    } catch (error) {
+        console.error("Error searching movies:", error);
+        statusMessage = "Error searching movies";
+    }
 
-  res.json(
-    HelperMethods.makeResponseObject(
-      statusCode,
-      statusMessage,
-      successful,
-      data
-    )
-  );
-  res.end();
+    res.json(
+        HelperMethods.makeResponseObject(
+            statusCode,
+            statusMessage,
+            successful,
+            data
+        )
+    );
+    res.end();
 });
 
 
@@ -186,41 +186,73 @@ router.get("/search", async (req, res) => {
  *         description: Search Content bad request / Server error
  */
 router.get("/:id", async (req, res) => {
-  console.log(
-    `Movie Details Request Handler: [request = ${JSON.stringify(
-      req.body
-    )}, Received on: ${new Date().toLocaleString("en-US", {
-      timeZoneName: "short",
-    })}]`
-  );
+    console.log(
+        `Movie Details Request Handler: [request = ${JSON.stringify(
+            req.body
+        )}, Received on: ${new Date().toLocaleString("en-US", {
+            timeZoneName: "short",
+        })}]`
+    );
 
-  const movieId = req.params.id;
+    const movieId = req.params.id;
 
-  // Response variables
-  var statusCode = HttpStatusCode.Unauthorized.toString();
-  var statusMessage = defaultStatusMessage;
-  var data = {};
-  var successful = false;
+    // Response variables
+    var statusCode = HttpStatusCode.Unauthorized.toString();
+    var statusMessage = defaultStatusMessage;
+    var data = {};
+    var successful = false;
 
-  // TODO: implement service
-
-  try {
-    data = await TMDBApiHelper.getMovieDetails({}, movieId);
-    successful = true;
-    statusCode = HttpStatusCode.Ok.toString();
-    statusMessage = "Movie details fetched successfully";
-  } catch (error) {
-    statusMessage = "Error fetching movie details";
-  }
-  res.json(
-    HelperMethods.makeResponseObject(
-      statusCode,
-      statusMessage,
-      successful,
-      data
-    )
-  );
-  res.end();
+    try {
+        data = await TMDBApiHelper.getMovieDetails({}, movieId);
+        successful = true;
+        statusCode = HttpStatusCode.Ok.toString();
+        statusMessage = "Movie details fetched successfully";
+    } catch (error) {
+        statusMessage = "Error fetching movie details";
+    }
+    res.json(
+        HelperMethods.makeResponseObject(
+            statusCode,
+            statusMessage,
+            successful,
+            data
+        )
+    );
+    res.end();
 });
+
+router.get("/trailer/:id", async (req, res) => {
+    console.log(`Get movie trailer link Request Handler: [request = ${JSON.stringify(req.body)}, Received on: ${new Date().toLocaleString('en-US', { timeZoneName: 'short' })}]`);
+
+    // Response variables
+    var statusCode = HttpStatusCode.Unauthorized.toString();
+    var statusMessage = defaultStatusMessage;
+    var data = {};
+    var successful = false;
+
+    const movieId = req.params.id;
+
+    try {
+        data = await TMDBApiHelper.trailer(movieId, {});
+        successful = true;
+        statusCode = HttpStatusCode.Ok.toString();
+        statusMessage = "Movies search successfully";
+    } catch (error) {
+        console.error("Error searching movies:", error);
+        statusMessage = "Error searching movies";
+    }
+
+    res.json(
+        HelperMethods.makeResponseObject(
+            statusCode,
+            statusMessage,
+            successful,
+            data
+        )
+    );
+    res.end();
+});
+
+
 
 module.exports = router;
